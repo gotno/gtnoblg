@@ -1,0 +1,12 @@
+html {
+  --latte: #FFF8E5;
+  --root: #27080A;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+
+  background-color: var(--latte);
+  color: var(--root);
+}

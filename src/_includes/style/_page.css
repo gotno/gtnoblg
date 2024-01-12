@@ -1,0 +1,35 @@
+html {
+  --gutter: 2rem;
+}
+
+header {
+  position: sticky;
+  top: 0;
+
+  margin-top: calc(3 * var(--gutter));
+
+  background-color: var(--latte);
+  z-index: 1;
+}
+
+header > h1 {
+  font-size: 3rem;
+  letter-spacing: .15rem;
+  font-weight: 600;
+
+  padding: 2rem 0;
+  padding-left: var(--gutter);
+
+  width: 100%;
+  overflow: hidden;
+}
+
+header.vcvrvr > h1 > span {
+  border-bottom: .4rem solid var(--root);
+  padding-right: 2rem;
+}
+
+main {
+  padding: var(--main-padding);
+  height: 4000px;
+}

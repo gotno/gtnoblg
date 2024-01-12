@@ -1,0 +1,13 @@
+---
+header_class: "vcvrvr"
+header_markup: <span>vcvrvr</span>(vrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvr)
+layout: layout.liquid
+page_title: vcvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvr
+---
+<ul>
+{% for post in collections.vcvrvr_post reversed %}
+  <li>
+    <a href="{{ post.url }}">{{ post.date | date: '%Y-%m-%d' }} - {{ post.data.title }}</a>
+  </li>
+{% endfor %}
+</ul>
