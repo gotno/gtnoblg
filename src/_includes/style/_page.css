@@ -2,17 +2,17 @@ html {
   --gutter: 2rem;
 }
 
-header {
+body > header {
   position: sticky;
   top: 0;
 
   margin-top: calc(3 * var(--gutter));
 
-  background-color: var(--latte);
+  background-color: var(--default-background-color);
   z-index: 1;
 }
 
-header > h1 {
+body > header > h1 {
   font-size: 3rem;
   letter-spacing: .15rem;
   font-weight: 600;
@@ -24,12 +24,74 @@ header > h1 {
   overflow: hidden;
 }
 
-header.vcvrvr > h1 > span {
-  border-bottom: .4rem solid var(--root);
+body > header.vcvrvr > h1 > span {
+  border-bottom: .4rem solid var(--default-text-color);
   padding-right: 2rem;
 }
 
 main {
-  padding: var(--main-padding);
-  height: 4000px;
+  padding: var(--gutter);
+  margin-bottom: 4rem;
+}
+@media (min-width: 666px) {
+  main {
+    padding: 0;
+  }
+}
+
+article {
+  width: 100%;
+}
+article > img {
+  width: 100%;
+}
+article.post-inline + article.post-inline {
+  margin-top: 4rem;
+}
+@media (min-width: 666px) {
+  article {
+    width: 66%;
+    margin-left: calc(33% / 3);
+  }
+}
+
+/* post header */
+article > header {
+  margin-bottom: 1rem;
+}
+article > header > h1 {
+  font-size: 2rem;
+  letter-spacing: .1rem;
+  font-weight: 600;
+}
+article > header > p { /* date */
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+/* post images */
+article > a.original-image {
+  display: block;
+}
+article > a.original-image, article > .yt-container {
+  margin-bottom: 1rem;
+}
+
+/* post text */
+article > p:not(last-child), article > ul:not(last-child) {
+  margin-bottom: 1rem;
+}
+
+/* post footer */
+article > footer {
+  margin-top: 1.6rem;
+}
+
+.yt-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

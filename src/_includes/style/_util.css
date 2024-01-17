@@ -1,0 +1,15 @@
+.aspect-box {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.aspect-box::after {
+  display: block;
+  content: "";
+  padding-top: calc(1 / 1 * 100%);
+}
+
+.aspect-box.sixteen-to-nine::after {
+  padding-top: calc(9 / 16 * 100%);
+}
