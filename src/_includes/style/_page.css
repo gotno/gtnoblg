@@ -27,7 +27,7 @@ body > header > h1 {
 body > header > h1 > span.dropline {
   text-decoration: underline;
   text-decoration-thickness: 0.4rem;
-  text-underline-offset: 1rem;
+  text-underline-offset: 0.8rem;
 }
 body > header > h1 > span.dropline:after {
   /* \00a0 == &nbsp; */
