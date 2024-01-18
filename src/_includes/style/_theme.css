@@ -23,6 +23,8 @@ body {
 
 a, a:hover {
   color: var(--default-text-color);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
 
 a.back:before {

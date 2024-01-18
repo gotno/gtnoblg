@@ -24,9 +24,14 @@ body > header > h1 {
   overflow: hidden;
 }
 
-body > header.vcvrvr > h1 > span {
-  border-bottom: .4rem solid var(--default-text-color);
-  padding-right: 2rem;
+body > header > h1 > span.dropline {
+  text-decoration: underline;
+  text-decoration-thickness: 0.4rem;
+  text-underline-offset: 1rem;
+}
+body > header > h1 > span.dropline:after {
+  /* \00a0 == &nbsp; */
+  content: "\00a0\00a0";
 }
 
 main {
@@ -36,6 +41,7 @@ main {
 @media (min-width: 666px) {
   main {
     padding: 0;
+    margin-left: calc(33% / 3);
   }
 }
 
@@ -51,7 +57,6 @@ article.post-inline + article.post-inline {
 @media (min-width: 666px) {
   article {
     width: 66%;
-    margin-left: calc(33% / 3);
   }
 }
 
