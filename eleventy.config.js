@@ -12,11 +12,8 @@ const imageShortcodeCallback =
       outputDir: 'dist/img',
 		});
 
-    const srcsetSizes = ['1x', '1.5x', '2x'];
     const srcset =
-      metadata.jpeg.slice(0, -1).map((data, idx) => (
-        `${data.url} ${srcsetSizes[idx]}`
-      )).join(', ');
+      metadata.jpeg.map(data => data.srcset).join(', ');
 
 		const lowsrc = metadata.jpeg[0];
 		const originalsrc = metadata.jpeg[metadata.jpeg.length - 1];
