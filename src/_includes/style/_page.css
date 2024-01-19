@@ -28,6 +28,7 @@ body > header > h1 > span.dropline {
   text-decoration: underline;
   text-decoration-thickness: 0.5rem;
   text-underline-offset: 0.75rem;
+  text-decoration-color: var(--default-highlight-color);
 }
 body > header > h1 > span.dropline:after {
   /* \00a0 == &nbsp; */
@@ -80,12 +81,31 @@ article > a.original-image {
   display: block;
 }
 article > a.original-image, article > .yt-container {
-  margin-bottom: 1rem;
+  margin-bottom: var(--standard-spacing);
+}
+article > p.caption {
+  position: relative;
+  --shift: calc(-1 * var(--standard-spacing) - 1.5rem);
+  top: var(--shift);
+  margin-bottom: var(--shift);
+
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.6rem;
+
+  background-color: var(--default-highlight-color);
+}
+@media (min-width: 666px) {
+  article > p.caption {
+    width: 70%;
+    margin-left: 10%;
+  }
 }
 
 /* post text */
 article > p:not(last-child), article > ul:not(last-child) {
-  margin-bottom: 1rem;
+  margin-bottom: var(--standard-spacing);
 }
 
 /* post footer */
