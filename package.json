@@ -4,5 +4,11 @@
     "@11ty/eleventy-img": "^3.1.8",
     "@11ty/eleventy-plugin-webc": "^0.11.2",
     "luxon": "^3.4.4"
+  },
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "clean": "rm -rf dist",
+    "rebuild": "npm run clean && npm run build",
+    "serve": "npm run clean && npx @11ty/eleventy --serve"
   }
 }
