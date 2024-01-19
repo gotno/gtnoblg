@@ -14,8 +14,8 @@ body > header {
 
 body > header > h1 {
   font-size: 3rem;
-  letter-spacing: .15rem;
-  font-weight: 600;
+  letter-spacing: .05rem;
+  font-weight: 800;
 
   padding: 2rem 0;
   padding-left: var(--gutter);
@@ -26,8 +26,8 @@ body > header > h1 {
 
 body > header > h1 > span.dropline {
   text-decoration: underline;
-  text-decoration-thickness: 0.4rem;
-  text-underline-offset: 0.8rem;
+  text-decoration-thickness: 0.5rem;
+  text-underline-offset: 0.75rem;
 }
 body > header > h1 > span.dropline:after {
   /* \00a0 == &nbsp; */
