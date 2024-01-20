@@ -85,9 +85,11 @@ article > a.original-image, article > .yt-container {
 }
 article > p.caption {
   position: relative;
-  --shift: calc(-1 * var(--standard-spacing) - 1.5rem);
-  top: var(--shift);
-  margin-bottom: var(--shift);
+  --shift: 1.5rem;
+  top: calc(-1 * (var(--standard-spacing) + var(--shift)));
+  margin-bottom: calc(-1 * var(--shift));
+
+  font-size: 0.9rem;
 
   width: 90%;
   margin-left: auto;
@@ -104,8 +106,11 @@ article > p.caption {
 }
 
 /* post text */
-article > p:not(last-child), article > ul:not(last-child) {
-  margin-bottom: var(--standard-spacing);
+article > p:not(first-child),
+article > ul:not(first-child),
+article > a.original-image:not(first-child),
+article > .yt-container:not(first-child) {
+  margin-top: var(--standard-spacing);
 }
 
 /* post footer */

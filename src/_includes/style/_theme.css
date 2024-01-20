@@ -55,9 +55,9 @@ a.view-post:after {
 }
 
 ul {
-  padding-left: 1rem;
+  list-style-position: outside;
+  padding-left: var(--gutter);
 }
 ul > li {
-  list-style-position: inside;
   list-style-type: disc;
 }
