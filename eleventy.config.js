@@ -1,7 +1,7 @@
 const Image = require("@11ty/eleventy-img");
 
 const imageShortcodeCallback =
-  async function(src, alt, sizes = '100vw') {
+  async function(src, alt) {
     if (alt === undefined) { // || alt === '') {
 			throw new Error(`Missing \`alt\` on responsiveimage from: ${src}`);
 		}
