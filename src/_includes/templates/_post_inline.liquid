@@ -1,10 +1,25 @@
 <article class="post-inline">
   <header>
-    <h1>{{ title }}</h1>
-    <p>{{ date }}</p>
+    <h1>{{ data.title }}</h1>
+    <p>{{ data.dateString }}</p>
   </header>
-  {{ content }}
+  {% if data.truncate %}
+    {% if data.preview_img_src %}
+      {% image data.preview_img_src, data.preview_img_alt %}
+    {% endif %}
+    {% if data.preview_text %}
+      <p>
+        {{ data.preview_text }}
+      </p>
+    {% endif %}
+  {% else %}
+    {{ content }}
+  {% endif %}
   <footer>
-    <a class="view-post" href="{{url}}">view post</a>
+    {% if data.truncate %}
+      <a class="view-post" href="{{url}}">read more</a>
+    {% else %}
+      <a class="view-post" href="{{url}}">view post</a>
+    {% endif %}
   </footer>
 </article>

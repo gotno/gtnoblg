@@ -7,9 +7,8 @@ page_title: vcvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvrvr
 {% for post in collections.vcvrvr_post reversed %}
   {%
     render 'templates/_post_inline.liquid',
-    title: post.data.title,
-    date: post.data.dateString,
     content: post.content,
-    url: post.url
+    url: post.url,
+    data: post.data
   %}
 {% endfor %}
