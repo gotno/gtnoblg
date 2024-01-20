@@ -45,6 +45,11 @@ p.banner {
   text-align: center;
   font-weight: 700;
 }
+@media (min-width: 666px) {
+  p.banner {
+    padding: 2rem 8rem;
+  }
+}
 
 main {
   padding: var(--gutter);
