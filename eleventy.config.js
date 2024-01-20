@@ -33,8 +33,18 @@ const imageShortcodeCallback =
     `;
 	};
 
+const ytShortcodeCallback =
+  async function(src) {
+    return `
+      <div class="aspect-box sixteen-to-nine yt-container">
+        <iframe width="560" height="315" src="${src}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    `;
+	};
+
 module.exports = (eleventyConfig) => {
 	eleventyConfig.addShortcode('image', imageShortcodeCallback);
+	eleventyConfig.addShortcode('yt', ytShortcodeCallback);
 
   return {
     dir: {

@@ -2,9 +2,7 @@
 title: surrogate
 date: 2023-08-11 
 ---
-<div class="aspect-box sixteen-to-nine yt-container">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/rgIItzmNW9Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
+{% yt "https://www.youtube.com/embed/rgIItzmNW9Q" %}
 <p>
   after another few weeks on the struggle bus, i come up with a strategy: i create a single surrogate widget for each svg i need to render, steal the texture it uses under the hood, and then kill the surrogate. finally, all the graphics are in place, or at least the ones that aren't dynamically drawn. gods only know if i'll ever figure out how to make that work.
 </p>
