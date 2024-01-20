@@ -35,6 +35,17 @@ body > header > h1 > span.dropline:after {
   content: "\00a0\00a0";
 }
 
+p.banner {
+  width: 100%;
+  padding: 2rem 4rem;
+  margin-bottom: 1rem;
+
+  background-color: var(--default-highlight-color);
+
+  text-align: center;
+  font-weight: 700;
+}
+
 main {
   padding: var(--gutter);
   margin-bottom: 4rem;

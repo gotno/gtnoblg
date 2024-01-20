@@ -13,6 +13,11 @@
     <header role="banner" class="{{ header_class }}">
       <h1>{{ header_markup }}</h1>
     </header>
+    {% if banner_markup %}
+      <p class="banner">
+        {{ banner_markup }}
+      </p>
+    {% endif %}
     <main>
       {{ content }}
     </main>
