@@ -24,13 +24,17 @@ body > header > h1 {
   overflow: hidden;
 }
 
-body > header > h1 > span.dropline {
+body > header > h1 > span.dropline,
+body > header > h1 > a,
+body > header > h1 > a:hover,
+body > header > h1 > a:visited {
   text-decoration: underline;
   text-decoration-thickness: 0.5rem;
   text-underline-offset: 0.75rem;
   text-decoration-color: var(--default-highlight-color);
 }
-body > header > h1 > span.dropline:after {
+body > header > h1 > span.dropline:after,
+body > header > h1 > a:after {
   /* \00a0 == &nbsp; */
   content: "\00a0\00a0";
 }
