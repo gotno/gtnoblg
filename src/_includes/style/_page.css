@@ -35,30 +35,41 @@ body > header > h1 > span.dropline:after {
   content: "\00a0\00a0";
 }
 
-p.banner {
+.banner {
   width: 100%;
   padding: 2rem 4rem;
   margin-bottom: 1rem;
 
   background-color: var(--default-highlight-color);
 
-  text-align: center;
   font-weight: 700;
 }
+.banner > p {
+  text-align: center;
+}
+.banner > p + p {
+  margin-top: 0.4rem;
+}
 @media (min-width: 666px) {
-  p.banner {
-    padding: 2rem 8rem;
+  .banner {
+    padding: 2rem 0;
+  }
+  .banner > p {
+    padding-left: calc(33% / 3);
+    width: 66%;
+    text-align: left;
   }
 }
 
 main {
+  width: 100%;
   padding: var(--gutter);
   margin-bottom: 4rem;
 }
 @media (min-width: 666px) {
   main {
     padding: 0;
-    margin-left: calc(33% / 3);
+    padding-left: calc(33% / 3);
   }
 }
 
