@@ -101,6 +101,9 @@ article > header > h1 {
   letter-spacing: .1rem;
   font-weight: 600;
 }
+article > header > h1 > a {
+  text-decoration: none;
+}
 article > header > p { /* date */
   margin-left: 1rem;
   font-size: 0.8rem;
