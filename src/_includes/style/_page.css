@@ -123,8 +123,6 @@ article > p.caption {
   top: calc(-1 * (var(--standard-spacing) + var(--shift)));
   margin-bottom: calc(-1 * var(--shift));
 
-  font-size: 0.9rem;
-
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -140,6 +138,10 @@ article > p.caption {
 }
 
 /* post text */
+article > p,
+article > ul > li {
+  line-height: 1.4rem;
+}
 article > p:not(first-child),
 article > ul:not(first-child),
 article > a.original-image:not(first-child),
@@ -152,6 +154,11 @@ article > footer {
   margin-top: 1.6rem;
 }
 
+article > .yt-container,
+article > a.original-image {
+  width: 90%;
+  margin: 0 auto;
+}
 .yt-container iframe {
   position: absolute;
   top: 0;
