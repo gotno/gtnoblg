@@ -119,11 +119,13 @@ article > a.original-image, article > .yt-container {
 }
 article > p.caption {
   position: relative;
-  --shift: 1.5rem;
-  top: calc(-1 * (var(--standard-spacing) + var(--shift)));
-  margin-bottom: calc(-1 * var(--shift));
+  --shift: calc(-1 * (var(--standard-spacing) + 1.5rem));
+  top: var(--shift);
+  margin-bottom: var(--shift);
 
-  width: 90%;
+  font-size: 0.8rem;
+
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding: 0.6rem;
