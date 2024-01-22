@@ -5,7 +5,7 @@
   </header>
   {% if data.truncate %}
     {% if data.preview_img_src %}
-      {% image data.preview_img_src, data.preview_img_alt %}
+      {% image data.preview_img_src, data.preview_img_alt, url %}
     {% endif %}
     {% if data.preview_text %}
       <p>

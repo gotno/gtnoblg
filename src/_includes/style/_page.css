@@ -111,10 +111,10 @@ article > header > p { /* date */
 }
 
 /* post images */
-article > a.original-image {
+article > a.image-link {
   display: block;
 }
-article > a.original-image, article > .yt-container {
+article > a.image-link, article > .yt-container {
   margin-bottom: var(--standard-spacing);
 }
 article > p.caption {
@@ -146,7 +146,7 @@ article > ul > li {
 }
 article > p:not(first-child),
 article > ul:not(first-child),
-article > a.original-image:not(first-child),
+article > a.image-link:not(first-child),
 article > .yt-container:not(first-child) {
   margin-top: var(--standard-spacing);
 }
@@ -157,7 +157,7 @@ article > footer {
 }
 
 article > .yt-container,
-article > a.original-image {
+article > a.image-link {
   width: 90%;
   margin: 0 auto;
 }

@@ -1,11 +1,7 @@
 const Image = require("@11ty/eleventy-img");
 
 const imageShortcodeCallback =
-  async function(src, alt) {
-    if (alt === undefined) { // || alt === '') {
-			throw new Error(`Missing \`alt\` on responsiveimage from: ${src}`);
-		}
-
+  async function(src, alt = '', linkUrl = '') {
 		const metadata = await Image(src, {
 			widths: [400, 800, 1200, 'auto'],
 			formats: ['jpeg'],
@@ -18,8 +14,11 @@ const imageShortcodeCallback =
 		const lowsrc = metadata.jpeg[0];
 		const originalsrc = metadata.jpeg[metadata.jpeg.length - 1];
 
+    const anchor = linkUrl === ''
+      ? `<a class="image-link" href="${originalsrc.url}" target="_blank">`
+      : `<a class="image-link" href="${linkUrl}">`
     return `
-      <a class="original-image" href="${originalsrc.url}" target="_blank">
+      ${anchor}
         <img
           src="${lowsrc.url}"
           srcset="${srcset}"
