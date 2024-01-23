@@ -1,12 +1,16 @@
 html {
   --latte: #FFF8E5;
+  --latte-highlight: #F2ECDB;
   --root: #27080A;
+  --root-highlight: #4D1014;
   --turquoise: #48D1CD;
   --reddish: #811B21;
+
 
   --default-text-color: var(--root);
   --default-background-color: var(--latte);
   --default-highlight-color: var(--turquoise);
+  --code-bg: var(--latte-highlight);
 
   --standard-spacing: 1rem;
 }
@@ -16,6 +20,7 @@ html {
     --default-text-color: var(--latte);
     --default-background-color: var(--root);
     --default-highlight-color: var(--reddish);
+    --code-bg: var(--root-highlight);
   }
 }
 
@@ -30,6 +35,21 @@ body {
 
   background-color: var(--default-background-color);
   color: var(--default-text-color);
+}
+
+tt {
+  font-family: "Inconsolata", monospace;
+  font-optical-sizing: auto;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+  display: inline-block;
+  background-color: var(--code-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 
 a, a:hover {
