@@ -12,9 +12,9 @@ preview_img_alt: a screenshot of a computer screen showing a software modular sy
 {% image preview_img_src, preview_img_alt %}
 <p class="caption">let there be lights!</p>
 
-<p>Next up, I need to continuously collect the current color and brightness values for each light and send them over to Unreal. I&rsquo;ll go ahead and compare the current values to the last ones I sent and only send an update if anything has changed. To do this, when I collect the initial data for each light I&rsquo;m also storing a reference to the light so I don&rsquo;t have to go digging through everything every time. I&rsquo;'ll need to manage this list to avoid null pointers, but the effeciency now is worth the tradeoff</p>
+<p>Next up, I need to continuously collect the current color and brightness values for each light and send them over to Unreal. I&rsquo;ll go ahead and compare the current values to the last ones I sent and only send an update if anything has changed. To do this, when I collect the initial data for each light I&rsquo;m also storing a reference to the light so I don&rsquo;t have to go digging through everything every time. Later on, I&rsquo;'ll need to manage this list to avoid null pointers, but the effeciency now is worth the tradeoff.</p>
 
-<p>The main process loop in a Rack module runs at audio rates, which means, depending on the user&rsquo; settings, it&rsquo;s running potentially tens of thousands of times per second. I need 60 FPS at best for the lights, so I throw a process divider in and only check for light changes every <tt>sampleRate / 60</tt> runs. With that, the lights they are a-blinking.</p> 
+<p>The main process loop in a Rack module runs at audio rates, which means, depending on the user&rsquo;s settings, it&rsquo;s running potentially tens of thousands of times per second. I need 60 FPS at best for the lights, so I throw a process divider in and only check for light changes every <tt>sampleRate / 60</tt> runs. With that, the lights they are a-blinking.</p> 
 
 {% yt "https://www.youtube.com/embed/GLOPNv3pmpA" %}
 
