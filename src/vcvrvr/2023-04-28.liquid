@@ -1,0 +1,25 @@
+---
+title: don&rsquo;t say let there be lights don&rsquo;t say let there
+date: 2023-04-28
+
+truncate: true
+preview_text: For the next attempt at sending data from Rack to Unreal we&rsquo;re going to start getting <em>realtime</em>. First, I need to get the position and size data for the lights over to Unreal like I&rsquo;m doing for everything else, and while I&rsquo;m at it&hellip;
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot-2023-04-23-220826.png
+preview_img_alt: a screenshot of a computer screen showing a software modular synthesizer app on one side, and a crude recreation of that interface, including glowing lights, in a game engine on the other side.
+---
+<p>For the next attempt at sending data from Rack to Unreal we&rsquo;re going to start getting <em>realtime</em>. First, I need to get the position and size data for the lights over to Unreal like I&rsquo;m doing for everything else, and while I&rsquo;m at it, I&rsquo;ll send the color and brightness of each light as it is at the moment I grab the position data. For now, I&rsquo;ll render these as tiny point lights floating in space, but once we have actual 3d meshes these will likely be emissive (glowing) textures.</p>
+
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">let there be lights!</p>
+
+<p>Next up, I need to continuously collect the current color and brightness values for each light and send them over to Unreal. I&rsquo;ll go ahead and compare the current values to the last ones I sent and only send an update if anything has changed. To do this, when I collect the initial data for each light I&rsquo;m also storing a reference to the light so I don&rsquo;t have to go digging through everything every time. I&rsquo;'ll need to manage this list to avoid null pointers, but the effeciency now is worth the tradeoff</p>
+
+<p>The main process loop in a Rack module runs at audio rates, which means, depending on the user&rsquo; settings, it&rsquo;s running potentially tens of thousands of times per second. I need 60 FPS at best for the lights, so I throw a process divider in and only check for light changes every <tt>sampleRate / 60</tt> runs. With that, the lights they are a-blinking.</p> 
+
+{% yt "https://www.youtube.com/embed/GLOPNv3pmpA" %}
+
+<p>However, one last problem remains: Rack&rsquo;s built-in CPU meter, which I had noticed typically sits around 2-4% with the default patch, is now at 30%. It is clear that my initial, naive approach to gathering the lights data and sending the updates is woefully ineffecient. I can think of things that could potentially help remedy this, but I don&rsquo;t know how to <em>do them</em> yet. In the end, I implement two major optimizations:</p>
+<p>One, a <strong>threaded queue</strong>. I don&rsquo;t have much (any!) experience with concurrency. But I know the main process thread in Rack, running at audio rates, should only be concerned with doing audio things. So I learn how to make a queue in c++, and I learn how to manage threads, and I have the process thread dump a command into a queue that another thread can pick up and do the work on. I have earned strange new programming scars. I feel like the King of Concurrency.</p>
+<p>And two, <strong>bundled updates</strong>. This one was much easier. OSC can either send a single <a href="https://opensoundcontrol.stanford.edu/spec-1_0.html#osc-messages" target="_blank">message</a>, like a POST request in TCP/HTTP-land, or it can <a href="https://opensoundcontrol.stanford.edu/spec-1_0.html#osc-bundles" target="_blank">bundle</a> a bunch of messages together with an optional process-these-at-this-time timestamp. Unreal happily pulls apart a bundle and sequentially processes each message contained within. I am currently sending each light update as a single message. So all I need to do is learn how to bundle the light update messages on the sending end. Easy.</p>
+
+<p>The CPU meter is happy, I have <em>learned things</em>, and the lights blink better than ever.</p>
