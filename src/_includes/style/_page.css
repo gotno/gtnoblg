@@ -97,15 +97,13 @@ article > header {
   margin-bottom: 1rem;
 }
 article > header > h1 {
-  font-size: 2rem;
-  letter-spacing: .1rem;
+  font-size: 1.6rem;
   font-weight: 600;
 }
 article > header > h1 > a {
   text-decoration: none;
 }
 article > header > p { /* date */
-  margin-left: 1rem;
   font-size: 0.8rem;
   font-weight: 400;
 }
