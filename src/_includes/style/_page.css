@@ -141,7 +141,8 @@ article > p.caption {
 
 /* post text */
 article > p,
-article > ul > li {
+article > ul > li,
+article > ol > li {
   line-height: 1.4rem;
 }
 article > p:not(first-child),

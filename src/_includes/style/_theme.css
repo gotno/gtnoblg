@@ -74,9 +74,12 @@ a.view-post:after {
   text-decoration: none;
 }
 
-ul {
+ul, ol {
   list-style-position: outside;
   padding-left: var(--gutter);
+}
+ol > li {
+  list-style-type: decimal;
 }
 ul > li {
   list-style-type: disc;
