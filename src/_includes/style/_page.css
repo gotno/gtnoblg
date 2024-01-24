@@ -167,3 +167,10 @@ article > a.image-link {
   width: 100%;
   height: 100%;
 }
+
+/* fix for anchor#links disappearing under sticky header */
+/* thanks, https://markus.oberlehner.net/blog/simple-solution-for-anchor-links-behind-sticky-headers/ */
+[id] {
+  /* header 3rem font-size + 2rem padding-top/bottom + 1rem for idfk */
+  scroll-margin-top: 8rem;
+}
