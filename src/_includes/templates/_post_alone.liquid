@@ -6,9 +6,33 @@ layout: layout.liquid
     <p>{{ dateString }}</p>
     <h1>{{ title }}</h1>
   </header>
+
   {{ content }}
 
   <footer>
-    <a class="back" href="/vcvrvr#vcvrvr-post-{{ collections.vcvrvr_post | getCollectionItemIndex }}">back</a>
+    {% assign previousPost = collections.vcvrvr_post | getPreviousCollectionItem %}
+    {% assign nextPost = collections.vcvrvr_post | getNextCollectionItem %}
+
+    <a class="back" href="/vcvrvr#vcvrvr-post-{{ collections.vcvrvr_post | getCollectionItemIndex }}">back to index</a>
+    <nav>
+      {% if previousPost %}
+        <a title="previous post" class="nav-item previous-post" href="{{ previousPost.url }}">
+          <div class="clipper">
+            {{ previousPost.data.title }}
+          </div>
+        </a>
+      {% else %}
+        <div></div>
+      {% endif %}
+      {% if nextPost %}
+        <a title="next post" class="nav-item next-post" href="{{ nextPost.url }}">
+          <div class="clipper">
+            {{ nextPost.data.title }}
+          </div>
+        </a>
+      {% else %}
+        <div></div>
+      {% endif %}
+    </nav>
   </footer>
 </article>

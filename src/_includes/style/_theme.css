@@ -58,25 +58,6 @@ a, a:hover {
   text-underline-offset: 0.2rem;
 }
 
-a.back:before {
-  content: "◀";
-  font-size: 0.8rem;
-  display: inline-block;
-  margin-right: 0.4rem;
-  text-decoration: none;
-}
-
-a.view-post:after {
-  content: "▶";
-  font-size: 0.8rem;
-  display: inline-block;
-  margin-left: 0.4rem;
-  text-decoration: none;
-
-  position: relative;
-  top: 0.05rem;
-}
-
 ul, ol {
   list-style-position: outside;
   padding-left: var(--gutter);

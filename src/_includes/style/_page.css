@@ -154,6 +154,63 @@ article > .yt-container:not(first-child) {
 article > footer {
   margin-top: 1.6rem;
 }
+article > footer {
+  font-size: 0.8rem;
+}
+article.post-alone > footer > nav {
+  display: flex;
+  flex-flow: row nowrap;
+
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+article.post-alone > footer a,
+article.post-inline > footer a {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  gap: 0.2rem;
+
+  padding: 0.4rem;
+
+  background-color: var(--code-bg);
+
+  text-decoration: none;
+}
+article.post-alone > footer a:hover,
+article.post-inline > footer a:hover {
+  text-decoration: none;
+  background-color: var(--default-highlight-color);
+}
+article.post-alone > footer > nav > a.nav-item {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.post-alone footer a:before,
+.post-alone footer a:after,
+.post-inline footer a:after {
+  font-size: 0.6rem;
+  display: inline-block;
+  text-decoration: none;
+}
+.post-alone footer a.back:before {
+  content: "▲";
+}
+.post-alone footer a.nav-item.previous-post:before {
+  content: "◀";
+}
+.post-alone footer a.nav-item.next-post:after,
+.post-inline footer a.view-post:after {
+  content: "▶";
+}
+.post-alone footer a.nav-item > .clipper {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 article > .yt-container,
 article > a.image-link {
