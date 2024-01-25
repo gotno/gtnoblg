@@ -154,7 +154,7 @@ article > .yt-container:not(first-child) {
 article > footer {
   margin-top: 1.6rem;
 }
-article > footer {
+article.post-alone > footer {
   font-size: 0.8rem;
 }
 article.post-alone > footer > nav {
@@ -165,8 +165,7 @@ article.post-alone > footer > nav {
   gap: 0.6rem;
   margin-top: 0.6rem;
 }
-article.post-alone > footer a,
-article.post-inline > footer a {
+article.post-alone > footer a {
   display: flex;
   flex-flow: row nowrap;
   align-items: baseline;
@@ -178,8 +177,7 @@ article.post-inline > footer a {
 
   text-decoration: none;
 }
-article.post-alone > footer a:hover,
-article.post-inline > footer a:hover {
+article.post-alone > footer a:hover {
   text-decoration: none;
   background-color: var(--default-highlight-color);
 }
@@ -189,8 +187,7 @@ article.post-alone > footer > nav > a.nav-item {
 }
 
 .post-alone footer a:before,
-.post-alone footer a:after,
-.post-inline footer a:after {
+.post-alone footer a:after {
   font-size: 0.6rem;
   display: inline-block;
   text-decoration: none;
@@ -201,8 +198,7 @@ article.post-alone > footer > nav > a.nav-item {
 .post-alone footer a.nav-item.previous-post:before {
   content: "◀";
 }
-.post-alone footer a.nav-item.next-post:after,
-.post-inline footer a.view-post:after {
+.post-alone footer a.nav-item.next-post:after {
   content: "▶";
 }
 .post-alone footer a.nav-item > .clipper {
@@ -210,6 +206,17 @@ article.post-alone > footer > nav > a.nav-item {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.post-inline footer a.view-post:after {
+  content: "▶";
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-left: 0.4rem;
+  text-decoration: none;
+
+  position: relative;
+  top: 0.05rem;
 }
 
 article > .yt-container,
