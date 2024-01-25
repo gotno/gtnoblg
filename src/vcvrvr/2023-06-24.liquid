@@ -3,19 +3,19 @@ title: sketching out the geometry
 date: 2023-06-24
 
 truncate: true
-preview_text: Now that I&lsquo;m confident I&lsquo;m getting data into Unreal in a consistent and performant way, I&lsquo;m adding some simple geometry sketches to get started on user interaction&hellip;
+preview_text: Now that I&rsquo;m confident I&rsquo;m getting data into Unreal in a consistent and performant way, I&rsquo;m adding some simple geometry sketches to get started on user interaction&hellip;
 preview_img_src: src/img/vcvrvr/VCVRVRScreenshot-2023-06-07-090029.png
 preview_img_alt: ""
 ---
 {% image "src/img/vcvrvr/VCVRVRScreenshot-2023-04-29-230530.png", "" %}
 <p class="caption">The very beginning of replacing the debug lines with proper geometry.</p>
-<p>Now that I&lsquo;m confident I&lsquo;m getting data into Unreal in a consistent and performant way, I&lsquo;m adding some simple geometry sketches to get started on user interaction.</p>
-<p>The dimensions I&lsquo;m pulling out of Rack are in pixels, so I spent a fair amount of time working out how to reverse Rack&lsquo;s calculations and get back to the millimeters the original SVGs are <a href="https://vcvrack.com/manual/Panel#Setup" target="_blank">required to be in</a> (and multiplying by ten since Unreal&lsquo;s unit is the centimeter), as well as adapting Rack&lsquo;s top-left origin to Unreal&lsquo;s center-out style. Now I know that the dimensions Unreal receives can be used as-is for two dimensions. I only have to add the third.</p>
-<p>I won&lsquo;t know the size or shape of each module&lsquo;s body ahead of time, but they only need to be boxes I can paint an SVG on. Because I&lsquo;ve converted the dimensions I&lsquo;m sending to centimeters, which is Unreal&lsquo;s base unit, what I can do is create a &ldquo;unit module,&rdquo; which is just a 1cm cube, and scale it by the dimensions I&lsquo;ve sent over to Unreal to get the right sized module body. I do the same with the other meshes and make them all 1cm on the two axes that matter.</p>
+<p>Now that I&rsquo;m confident I&rsquo;m getting data into Unreal in a consistent and performant way, I&rsquo;m adding some simple geometry sketches to get started on user interaction.</p>
+<p>The dimensions I&rsquo;m pulling out of Rack are in pixels, so I spent a fair amount of time working out how to reverse Rack&rsquo;s calculations and get back to the millimeters the original SVGs are <a href="https://vcvrack.com/manual/Panel#Setup" target="_blank">required to be in</a> (and multiplying by ten since Unreal&rsquo;s unit is the centimeter), as well as adapting Rack&rsquo;s top-left origin to Unreal&rsquo;s center-out style. Now I know that the dimensions Unreal receives can be used as-is for two dimensions. I only have to add the third.</p>
+<p>I won&rsquo;t know the size or shape of each module&rsquo;s body ahead of time, but they only need to be boxes I can paint an SVG on. Because I&rsquo;ve converted the dimensions I&rsquo;m sending to centimeters, which is Unreal&rsquo;s base unit, what I can do is create a 1cm cube &ldquo;unit module,&rdquo; and scale it by the dimensions I&rsquo;ve sent over to Unreal. I do the same with the other meshes and make them all 1cm on the two axes that matter.</p>
 {% image "src/img/vcvrvr/vcv_units.png", "" %}
 {% image "src/img/vcvrvr/vcv_unit_port_and_module.png", "" %}
-<p class="caption">If I&lsquo;m smart about where I put the origins, the meshes will naturally sit on top of one another.</p>
-<p>All that&lsquo;s left, then, is to put it all together. I&lsquo;ve already been sending over additional data for the params, like min/default/max value, and min/max angle for the knobs, so I go ahead and rotate the knobs based on their values as well. Cables remain simple debug lines for now, but it&lsquo;s looking pretty decent!</p>
+<p class="caption">If I&rsquo;m smart about where I set each mesh&rsquo;s origins, they&rsquo;ll naturally sit on top of one another.</p>
+<p>All that&rsquo;s left, then, is to put it all together. I&rsquo;ve already been sending over additional data for the params, like min/default/max value, and min/max angle for the knobs, so I go ahead and rotate the knobs based on their values as well. Cables remain simple debug lines for now, but it&rsquo;s looking pretty decent!</p>
 {% image "src/img/vcvrvr/VCVRVRScreenshot-2023-06-24-220549.png", "" %}
 {% image "src/img/vcvrvr/VCVRVRScreenshot-2023-06-07-090029.png", "" %}
 {% image "src/img/vcvrvr/VCVRVRScreenshot-2023-06-07-132212.png", "" %}
