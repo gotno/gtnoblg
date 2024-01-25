@@ -143,10 +143,10 @@ article > ul > li,
 article > ol > li {
   line-height: 1.4rem;
 }
-article > p:not(first-child),
-article > ul:not(first-child),
-article > a.image-link:not(first-child),
-article > .yt-container:not(first-child) {
+article > p:not(:first-child),
+article > ul:not(:first-child),
+article > a.image-link:not(:first-child),
+article > .yt-container:not(:first-child) {
   margin-top: var(--standard-spacing);
 }
 
