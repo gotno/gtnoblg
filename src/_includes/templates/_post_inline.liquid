@@ -6,6 +6,8 @@
   {% if data.truncate %}
     {% if data.preview_img_src %}
       {% image data.preview_img_src, data.preview_img_alt, url %}
+    {% elsif data.preview_youtube_embed %}
+      {% yt data.preview_youtube_embed %}
     {% endif %}
     {% if data.preview_text %}
       <p>
