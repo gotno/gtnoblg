@@ -1,4 +1,5 @@
 const Image = require("@11ty/eleventy-img");
+const eleventyAutoCacheBuster = require("eleventy-auto-cache-buster");
 
 const imageShortcodeCallback =
   async function(src, alt = '', linkUrl = '') {
@@ -42,6 +43,8 @@ const ytShortcodeCallback =
 	};
 
 module.exports = (eleventyConfig) => {
+  eleventyConfig.addPlugin(eleventyAutoCacheBuster);
+
 	eleventyConfig.addShortcode('image', imageShortcodeCallback);
 	eleventyConfig.addShortcode('yt', ytShortcodeCallback);
 
