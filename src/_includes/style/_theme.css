@@ -48,6 +48,7 @@ tt {
 
   display: inline-block;
   background-color: var(--code-bg);
+  border: 1px solid var(--default-background-color);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
 }
