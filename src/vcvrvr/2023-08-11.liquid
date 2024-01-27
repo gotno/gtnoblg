@@ -1,0 +1,32 @@
+---
+title: scalable vector graphics
+date: 2023-08-11 
+
+truncate: true
+preview_text: One of the biggest questions I had coming into this project was how I&rsquo;d get the graphics from Rack into Unreal. On the Rack side, by default, everything is vector graphics. That&rsquo;s handled by loading SVG files or drawing graphics dynamically with <a href="https://github.com/memononen/nanovg" target="_blank">nanovg</a>. Unreal, however, does not natively support vector graphics&hellip;
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot-2023-07-28-085328.png
+preview_img_alt:
+---
+<p>One of the biggest questions I had coming into this project was how I&rsquo;d get the graphics from Rack into Unreal. On the Rack side, by default, everything is vector graphics. That&rsquo;s handled by loading SVG files or drawing graphics dynamically with <a href="https://github.com/memononen/nanovg" target="_blank">nanovg</a>. Unreal, however, does not natively support vector graphics. Luckily, there is one plugin available for Unreal that adds support for vector graphics, <a href="https://www.unrealengine.com/marketplace/en-US/product/definitive-painter" target="_blank">Definitive Painter</a>.</p>
+
+<p>Reading through Rack&rsquo;s source code, it becomes abundantly clear that supporting the dynamic graphics is a stretch goal, to say the least. I do not see a clear path forward on that front. However, supporting SVG graphics is only a matter of getting the SVG paths out. Unfortunately, the path is not exposed by the API, and getting at it at runtime with any kind of chicanery proves to be impossible. Thus, I am forced to make my first change to the source code of Rack itself. I fork the repo and <a href="https://github.com/gotno/Rack/commit/9d847908b46577f2ebf1d4207c9eed83b2e3735b" target="_blank">expose the path</a>. This means I will now have to package a custom build of Rack along with the Unreal app, but it seems to be unavoidable.</p>
+
+<p>Now that I can send SVG paths to Unreal along with the rest of the data, I just need to get them loaded in at runtime. Alas, Definitive Painter is not designed to do this. It expects SVGs to be imported in advance like any other resource. Luckily, the full source code is provided with the plugin, and I&rsquo;m able to make some relatively straightforward alterations to enable runtime loading of SVG assets. I create a quick test class to load the SVG and create a widget with Definitive Painter and I have my first successful test of vector graphics in Unreal!</p>
+
+{% image "src/img/vcvrvr/VCVRVRScreenshot-2023-07-12-121338.png", "" %}
+<p class="caption">It is a monumental relief to see these gorgeous vector graphics loaded as textures in Unreal.</p>
+
+<p>And so, I begin to load in the SVGs for each module&rsquo;s front panel, and for each param and port. I also swap out the meshes for knobs and ports with simple cylinders, since the detail will now come from the texture itself.</p>
+
+{% image "src/img/vcvrvr/VCVRVRScreenshot-2023-07-13-115645.png", "" %}
+{% image "src/img/vcvrvr/VCVRVRScreenshot-2023-07-13-121126.png", "" %}
+{% image "src/img/vcvrvr/VCVRVRScreenshot-2023-07-13-224245.png", "" %}
+{% image preview_img_src, preview_img_alt %}
+
+<p>This is starting to look absolutely lovely. I&rsquo;m holding back tears of joy. I can hardly believe I&rsquo;m getting this to work. But, the more I enable SVGs for each and every component, the more the performance starts to chug. See, Definitive Painter is designed to create <em>widgets</em>, and I&rsquo;m creating one (or, often, two or three in layers for some params) each time I need to use an SVG, and just laying it over the top of the component it goes with. Widgets, specifically world-space widgets&mdash;widgets that are rendered as 3d objects in the world&mdash;are terrible for performance.</p>
+
+<p>After another few weeks of digging through Definitive Painter&rsquo;s source learning how it works and how textures work in Unreal in general, and doing all kinds of experiments and tests, I end up landing on a simple strategy: The first time I encounter a given SVG, I create a single surrogate widget for it. I load that widget and steal the <tt>UTexture2D</tt> it uses under the hood. The surrogate can then be disposed of and a reference to the texture stored. I recreate each mesh in Blender with an additional material slot on its face and then, whenever I need to, I ask the game for the texture that corresponds to a given SVG path and apply it to that face. Now Unreal only needs to handle something it is fundamentally capable of: rendering textures on meshes.</p>
+
+{% yt "https://www.youtube.com/embed/rgIItzmNW9Q" %}
+
+<p>With that, graphics are in place&mdash;at least the ones that aren&rsquo;t dynamically drawn. I have ideas, but gods only know if I&rsquo;ll ever figure out how to make that work.</p>
