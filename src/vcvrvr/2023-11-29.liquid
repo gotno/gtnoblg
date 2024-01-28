@@ -1,0 +1,13 @@
+---
+title: body colors
+date: 2023-11-29
+
+truncate: true
+preview_text: Went off on a little tangent today and figured out how to semi-reliably pull the &ldquo;main&rdquo; color from an SVG, to use as the color of the non-textured faces of the mesh the SVG is painted on (ie the back and sides of a module, as seen above). Here&rsquo;s how it works, for the curious.
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot_2023-11-29_105916.png 
+preview_img_alt: ""
+---
+{% image preview_img_src, preview_img_alt %}
+<p>Went off on a little tangent today and figured out how to semi-reliably pull the &ldquo;main&rdquo; color from an SVG, to use as the color of the non-textured faces of the mesh the SVG is painted on (ie the back and sides of a module, as seen above). Here&rsquo;s how it works, for the curious.</p>
+<p>SVG parsing in Rack is handled by <a href="https://github.com/memononen/nanosvg" target="_blank">nanosvg</a>. A parsed SVG results in a list of <tt>shapes</tt>. Thanks to a helpful comment in the source, we know that each shape has a list of <tt>bounds</tt> which is a <tt>Tight bounding box of the shape [minx,miny,maxx,maxy]</tt>. From there, I simply iterate through <tt>shapes</tt>, calculate the area from the <tt>bounds</tt>, and take the color of the largest non-transparent area.</p>
+<p>Is this a perfect solution? Absolutely not. But, at the very least, I get <em>some</em> color from the module&rsquo;s palette. And more often than not, the shape with the largest area will be the background color of the panel or a color that stretches to the edges (for instance, with Befaco&rsquo;s <a href="https://library.vcvrack.com/Befaco/EvenVCO" target="_blank">red ports</a>) and therefore works well as the color for the sides of the mesh.</p>
