@@ -1,0 +1,22 @@
+---
+title: dealing with overlaps
+date: 2023-10-25
+
+truncate: true
+preview_text: Now that the modules can be moved around I&rsquo;ve discovered some unexpected fuckery with the way I&rsquo;m handling the placement of lights&hellip;
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot_2023-10-11_185424.png
+preview_img_alt: ""
+---
+<p>Now that the modules can be moved around I&rsquo;ve discovered some unexpected fuckery with the way I&rsquo;m handling the placement of lights.</p>
+<p>In Rack there are only 2 dimensions to deal with, so as long as the lights are drawn on top of everything else, they&rsquo;ll always be in the right place. In Unreal I have a third dimension to contend with, and when I encounter a light and another object&mdash;typically a button or a slider handle&mdash;occupying the same space, I need to move the light forward to rest on top of the other object.</p>
+{% image "src/img/vcvrvr/VCVRVRScreenshot_2023-10-11_071636.png", "" %}
+<p>I&rsquo;m handling this by setting the lights to respond to overlap events. The problem is that things are moving now, so overlaps can happen as a result of someone (me) swinging a module around (wildly, for fun). There are a few things I end up doing to mitigate this issue, and some other issues I find along the way:</p>
+<ol>
+  <li>Only handle the overlap event the first time it&rsquo;s fired.</li>
+  <li>Only allow overlaps from other components owned by the same module.</li>
+  <li>Rewrite the code that moves the light an amount equal to the height of the overlapped object, because sometimes it would move double the distance.</li>
+  <li>And, because lights would occasionally overlap with things that were nearby but not really touching, I tightened up the collision handling by setting some components to <tt>UseComplexAsSimple</tt> (which uses a shape closer to the mesh&rsquo;s actual shape, and not just a simple box).
+</ol>
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">Somewhere in debugging this I made the lights extra tall and exaggerated the location shift. Can&rsquo;t figure out why something is doing something? Make it do it more!</p>
+<p>All that taken care of, lights now end up where they're supposed to be and then stay there.</p>
