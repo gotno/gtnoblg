@@ -15,8 +15,8 @@ preview_img_alt: ""
 <ol>
   <li>Only handle the overlap event the first time it&rsquo;s fired.</li>
   <li>Only allow overlaps from other components owned by the same module.</li>
-  <li>Rewrite the code that moves the light an amount equal to the height of the overlapped object, because sometimes it would move double the distance.</li>
-  <li>And, because lights would occasionally overlap with things that were nearby but not really touching, I tightened up the collision handling by setting some components to <tt>UseComplexAsSimple</tt> (which uses a shape closer to the mesh&rsquo;s actual shape, and not just a simple box).
+  <li>Rewrite the code that moves the light. It&rsquo;s supposed to move an amount equal to the height of the overlapped object, but sometimes it would move double the distance.</li>
+  <li>And, because lights would occasionally overlap with things that were nearby but not really touching, I tightened up the collision handling by setting some components&rsquo; &ldquo;collision trace flag&rdquo; to <tt>UseComplexAsSimple</tt>. This uses a shape closer to the mesh&rsquo;s actual shape instead of a simple box.
 </ol>
 {% image preview_img_src, preview_img_alt %}
 <p class="caption">Somewhere in debugging this I made the lights extra tall and exaggerated the location shift. Can&rsquo;t figure out why something is doing something? Make it do it more!</p>
