@@ -1,0 +1,19 @@
+---
+title: zomg cables! 
+page_title: "zomg cables! [gtnoblg/vcvrvr]"
+date: 2024-01-03
+
+truncate: true
+preview_text: I&rsquo;ve put this off long enough. No more excuses. Let&rsquo;s have some proper cables.
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot_2024-01-03_095432.png
+preview_img_alt: ""
+---
+<p>I&rsquo;ve put this off long enough. No more excuses. Let&rsquo;s have some proper cables.</p>
+<p>I&rsquo;ve had my eye on Unreal&rsquo;s <a href="https://docs.unrealengine.com/5.0/en-US/cable-components-in-unreal-engine/" target="_blank">cable components</a> as a potential solution to my need for cables. Implementing them turns out to be pretty easy but, uhhh:
+{% yt "https://www.youtube.com/embed/jaGT4Oy-OJc?si=ZKP3Oc8qwig5GO5U" %}
+<p>Needs more gravity? Eventually, I figure out a good combination of amount of stiffness and number of segments and, rather than gravity, a direction of force relative to the two ports the cable is connected to to make the cable billow out in a realistic way. I also implement a timer system so I&rsquo;m only doing any expensive simulation while a cable is being manipulated and for a second or so afterward, after which the cable sleeps.</p>
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">Not sure where all my textures went, but this is looking ok.</p>
+{% image "src/img/vcvrvr/VCVRVRScreenshot_2023-12-27_170056.png", "" %}
+<p class="caption">Using the same set of colors Rack uses for cables.</p>
+<p>In the end, the work here necessitates a pretty major refactor of the cable class. It was originally implemented in a very naive way, and only really existed to draw a line between two ports. I rewrite it to treat it like the first-class citizen it is, making working with cables much more intuitive in general, and paving the way for doing something that Rack cannot: letting unconnected cables dangle in mid-air instead of just disappearing them when you let go. That&rsquo;s not in place just yet, but it will be soon.</p>
