@@ -1,0 +1,27 @@
+---
+title: the context menu 
+page_title: "the context menu [gtnoblg/vcvrvr]"
+date: 2023-12-21
+
+truncate: true
+preview_text: "With the library up and running, there&rsquo;s one last thing we need to support as much functionality as possible: the humble context menu."
+preview_img_src: src/img/vcvrvr/VCVRVRScreenshot_20231221_164927_821.png
+preview_img_alt: ""
+---
+<p>With the library up and running, there&rsquo;s one last thing we need to support as much functionality as possible: the humble context menu.</p>
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">Getting pretty good at this widget thing.</p>
+<p>With valuable experience gained building out the library UI, I decide to tackle context menus. There is the usual time spent figuring out how to get the data out of Rack. I catalog the types of entries that can be in a menu: labels, dividers, booleans, ranges, submenus, etc. I come up with a scheme for telling Rack which menu or submenu I want, given menus are created on the fly and don&rsquo;t have anything like an ID. It ends up resembling a linked list where I keep track of which menu items beget further (sub)menus, then move up and down that chain to find what I&rsquo;m looking for. I learn how to spawn a context menu in Rack and then fake mouse input to interact with it.</p>
+{% image "src/img/vcvrvr/VCVRVRScreenshot_20231219_080225_390.png", "" %}
+<p class="caption">Working out how to handle menu dividers.</p>
+<p>At this point, nearly a year out from the start of this project, I&rsquo;m starting to feel pretty confident in my knowledge and abilities. Building out the context menus goes remarkably smoothly and before long I have them fully functional.</p>
+<p>Why are context menus a big deal? Here is an example:</p>
+{% image "src/img/vcvrvr/VCVRVR_Screenshot_2024-01-12_101548.png", "" %}
+<p class="caption">Rack on the left, Unreal on the right. Notice anything missing?</p>
+<p>As I&rsquo;ve mentioned before, some of the graphics in Rack are handled by plugin authors dynamically drawing things at runtime, as exemplified by the LCD above. And, as you can see, I am not (yet, maybe ever) supporting those dynamic graphics. Two things that can help mitigate the missing information from the display. One is meaningful data in the tooltip for the related controls. Unfortunately, as is the case in this example, plugin authors often neglect to provide good labels in the tooltips. You can turn that knob all you want but the only feedback you&rsquo;ll have is the numeric value used internally being shown in the tooltip. Without a meaningful tooltip, we have to hope that the options present in the encoder/display combo are also present in a context menu. And they often are! Here&rsquo;s the context menu for that module, thank goodness:</p>
+{% image "src/img/vcvrvr/VCVRVR_Screenshot_2024-01-12_101706.png", "" %}
+<p class="caption">No dynamic graphics, no problem. For this module, anyway.</p>
+<p>The last, maybe most important reason we need context menus is the Audio and MIDI modules:</p>
+{% image "src/img/vcvrvr/Screenshot_2024-01-30_at_12.08.09_PM.png", "" %}
+<p>Without the context menus, it&rsquo;d be impossible to select your audio output device and such or set up MIDI controllers. This also leads to the second necessary modification to Rack&rsquo;s code: the menu above is <em>not</em> the standard context menu. It&rsquo;s a separate menu spawned by clicking somewhere else on the module. Rather than trying to code in exceptions for those menus, and figure out how to spawn them on the Rack side, I have simply modified the Rack implementation to dump those menu options into the standard right-click context menu. Thankfully the Rack developers have provided methods to do precisely that, for any other plugin authors who might want to use the audio or MIDI device menus.</p>
+<p>With that, we have another major component of Rack&rsquo;s user experience in place, and this thing is damn near usable. Incredible.</p>
