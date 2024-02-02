@@ -3,6 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="{{ page_title | default: "gtnoblg" }}" />
+    {% if dateString %}
+      <meta property="og:type" content="article" />
+    {% else %}
+      <meta property="og:type" content="website" />
+    {% endif %}
+    <meta property="og:url" content="https://blog.gotno.net{{ page.url }}" />
+    <meta property="og:image" content="/assets/og.jpg" />
+
     <link rel="stylesheet" href="/bundle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

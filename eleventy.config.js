@@ -45,6 +45,8 @@ const ytShortcodeCallback =
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(eleventyAutoCacheBuster);
 
+  eleventyConfig.addPassthroughCopy('src/assets');
+
 	eleventyConfig.addShortcode('image', imageShortcodeCallback);
 	eleventyConfig.addShortcode('yt', ytShortcodeCallback);
 
