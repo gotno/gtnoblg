@@ -1,0 +1,168 @@
+---
+title: status report, ~1yr later
+page_title: "status report [gtnoblg/vcvrvr]"
+date: 2024-11-30
+
+truncate: true
+preview_text: 
+preview_youtube_embed: https://www.youtube.com/embed/...
+---
+<p>In the last post, I said I needed to start looking for a job. The good news is, I found a job! Less good, finding a new job took SIX MONTHS. woof. I also bought a new house, moved, and sold my old house. I continued to work on the project, but with everything else going on, keeping this blog updated fell by the wayside. I'd like to get back to it, so I'll start off with another status report.</p>
+{% yt preview_youtube_embed %}
+<p>What's new? So, so much. This thing is almost to the point where I feel like all functionality is in place, which is to say the parity I would like to have with rack-proper is pretty close.</p>
+<p>Here's a long list of changes since the last post:</p>
+
+<ul>
+<li>module spawning location/rotation
+<ul>
+<li>previously, this was a direct translation of the 2d position in rack into a wall of modules</li>
+<li>now,
+<ul>
+<li>when spawned from library, module lands next to library</li>
+<li>when spawned via quick duplication, new module has the same position as original module at time of duplication (as though rubber-stamped)</li>
+<li>when spawned via context menu duplication, new module will land in front of the original</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>finally figured out smoothing on held module rotation (location smoothing was already present)</li>
+<li>actual dev/shipping builds
+<ul>
+<li>rack/oscctrl builds modified to ‘install’ to unreal build folders</li>
+</ul>
+</li>
+<li>unreal manages rack startup/shutdown
+<ul>
+<li>because the oscctrl plugin only works with this custom rack build, and would be useless on its own anyway, we manage the plugin’s installation on startup and its removal on shutdown</li>
+<li>implement autosave-and-shutdown as an OSC command on the rack side (because shutting down the launched proc via unreal force-quits and leaves everything dirty)</li>
+</ul>
+</li>
+<li>recovers from error binding port of rack side and chooses new port in a range
+<ul>
+<li>handle two-way OSC port discovery between rack client/server and unreal client/server</li>
+</ul>
+</li>
+<li>marquee text in context menus only on hover (previous always-scrolling was <em>madness</em>)</li>
+<li>implement savegames! tied to autosave or patch path, tracks:
+<ul>
+<li>module positions</li>
+<li>library position</li>
+<li>library visibility</li>
+<li>avatar position</li>
+<li>weldments (snapped/expander modules)</li>
+</ul>
+</li>
+<li>better grabbable actor setup and code sharing
+<ul>
+<li>fixed library grab outline size</li>
+<li>fixed grab outline position</li>
+</ul>
+</li>
+<li>refactored grab handling to make it much more reliable and improve <em>the feels</em></li>
+<li>major overhaul of param/port/cable interaction
+<ul>
+<li>promote cable ends to full actors (ACableEnd)</li>
+<li>instead of overlapping interactor component, run line traces on tick for each of param/port/cable end</li>
+<li>use pub/sub to broadcast targeted params/ports/cables
+<ul>
+<li>avatar responds by setting/unsetting input layer</li>
+<li>controller itself responds by refreshing/toggling tooltip</li>
+<li>cable ends respond with cute semi-plugged state</li>
+<li>cable ends broadcast their snapped-to destination port for the controller’s tooltip</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>fix overlap issue with lights&lt;-&gt;displays</li>
+<li>fixed a long-standing bug preventing initial light updates (tell rack an unreal-side module is ready to receive light updates only when it actually is, duh)</li>
+<li>fixed a bug with initial texture for active buttons with only one frame/texture</li>
+<li>added controls to summon/hide library [todo: summon only on loaded patch]</li>
+<li>fix issue with grabbable static mesh drifting away from the scene root</li>
+<li>fix positioning freakout on initial grabbable grab</li>
+<li>module snapping: modules can now be snapped together, which will rearrange things to match on the rack side, allowing grouping modules on the unreal side and connecting and disconnecting expanders on the rack side</li>
+<li>pull in data from rack settings.json for recent paths, autosave interval, cable colors, etc</li>
+<li>autosave unreal engine state at same interval as rack patch autosave</li>
+<li>use cable colors from <code>settings.json</code>, in case user has changed from defaults</li>
+<li>main menu has a ‘save’ button, which saves both the rack patch and the unreal state (module positions, etc.) attached to it</li>
+<li>replace physically-simulated cable component with much more performant (albeit, sadly, much less wiggly) niagara beam/ribbon particle fx systems</li>
+<li>implement controls for cycling color of held cable</li>
+<li>begin implementation of configuration menu, starting with:
+<ul>
+<li>cable tension slider</li>
+<li>cable opacity slider</li>
+<li>auto-cycle cable color toggle</li>
+</ul>
+</li>
+<li>replace translucent cable material with more performant dithered/masked material</li>
+<li>build file browser widget for loading patches and “save as” functionality</li>
+<li>build reusable keyboard widget, use for “save as”, library search</li>
+<li>replace existing marketplace plugin svg renderer with custom library based on rack’s rendering pipeline, using vcv rack’s modified nanovg, nanosvg for parsing, and nanovg-nanort for rendering to pixels on the cpu for consistency with rack rendering, eliminating strange rendering of many svgs. any svg that works in rack should work here too now.</li>
+<li>can overwrite template file (i decided to keep a separate template for the sim), which also saves unreal-side positions and such</li>
+<li>three maps, map switching, and lighting controls</li>
+</ul>
+<h3 id="v0.0.1">v0.0.1</h3>
+<ul>
+<li>initial release!</li>
+</ul>
+<h3 id="v0.0.1-hotfix2">v0.0.1-hotfix2</h3>
+<ul>
+<li>fixed an issue with spaces in patch filename paths causing rack to fail loading the patch</li>
+</ul>
+<h3 id="v0.0.1-hotfix1">v0.0.1-hotfix1</h3>
+<ul>
+<li>fixed a crash caused by lights trying to overlap missing params</li>
+<li>stopped built-in controller models from showing</li>
+<li>made the laser pointer thinner</li>
+<li>temporarily removed LCDs (only really used by official VCV stuff like Audio modules, VCA, ADSR, Wavetable VCO etc) because of a weird, outsized performance hit sometimes. this is odd because an LCD is just a rectangle with a shiny material :shrug:</li>
+<li>patched up patch loading a bit, although it remains somewhat buggy and still needs a <a href="https://github.com/gotno/racksim/issues/17">full rewrite</a></li>
+<li>redirected rack’s logs to unreal’s logfile, and made unreal’s logs work in shipping, so now there’s one unified log for racksim
+<ul>
+<li>unified log lives at <code>AppData\Local\RackSim\Saved\Logs\RackSim.log</code></li>
+<li>added a bunch of new logging statements to aid in debugging</li>
+</ul>
+</li>
+</ul>
+<h3 id="v0.0.2">v0.0.2</h3>
+<ul>
+<li>give initial module positioning (for patches without a racksim save) a more ergonomic tilt</li>
+<li>fix plugin name/favorite star overlap in library</li>
+<li>main menu is still ugly, but is now slightly less ugly
+<ul>
+<li>added custom checkbox buttons and labeled sliders to help clean things up</li>
+<li>added settings for showing and hiding controller tooltips and lights. hiding controller lights should hopefully improve performance pretty significantly.</li>
+<li>save configuration settings (cable opacity/tension, auto-cycle cable colors, show controller tooltips, show controller lights) between runs</li>
+</ul>
+</li>
+<li>increase knob sensitivity. it is now easier to turn a knob from fully down to fully up with one wrist motion.
+<ul>
+<li>added control for more precise knob turning–hold near button (X/A) while turning knob for precision mode.</li>
+</ul>
+</li>
+</ul>
+<h3 id="v.0.0.3">v.0.0.3</h3>
+<ul>
+<li>allow custom scaling of module size. 1x lifesize is <em>very small</em>, so we default to 1.667x (roughly 5U/moog size) for legibility and ease of use, but allow user adjustment on a per-patch basis</li>
+<li>add precision step controls for custom labeled slider widget
+<ul>
+<li>update lighting and scale sliders to use step controls</li>
+</ul>
+</li>
+<li>library updates
+<ul>
+<li>add module previews!
+<ul>
+<li>will ask to generate previews, once per session, if any are missing</li>
+<li>manual preview (re)generation in settings</li>
+</ul>
+</li>
+<li>flesh out summoned module parking next to library
+<ul>
+<li>newly spawned modules now form an orderly queue next to the library</li>
+<li>modules stay attached to the library until they’re moved somewhere else</li>
+</ul>
+</li>
+<li>tighten up various buttons’ hit zone sizing</li>
+</ul>
+</li>
+<li>cable particle fx automatically tracks cable end movement, simplifying a lot of the cable/end logic</li>
+</ul>
