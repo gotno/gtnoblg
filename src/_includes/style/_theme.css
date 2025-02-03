@@ -37,6 +37,10 @@ body {
   color: var(--default-text-color);
 }
 
+article > p {
+  font-weight: 300;
+}
+
 tt {
   font-family: "Inconsolata", monospace;
   font-optical-sizing: auto;
