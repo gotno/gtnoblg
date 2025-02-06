@@ -1,0 +1,18 @@
+---
+title: a major breakthrough
+page_title: "a major breakthrough [gtnoblg/vcvrvr]"
+date: 2024-12-08
+
+truncate: true
+preview_text: Can I really make this work?
+preview_img_src: src/img/vcvrvr/panel_and_overlay.jpg
+preview_img_alt: a render of a rack module panel and its overlay, side by side
+---
+<p>Reflecting on the issue with Rack and Unreal vis-a-vis viral open source licensing, there is one primary hurdle to overcome. The reason why I&rsquo;ve been using a modified version of Rack in the first place is that I needed access to the SVG filenames used for module graphics, and Rack as-is does not expose the filenames. It is a small but critical change. Without that information, I can&rsquo;t pass the file off to Unreal to render, and then I don&rsquo;t have any textures.</p>
+<p>But maybe the assumptions I made at the beginning of this project, with much less experience working with Rack, are not necessarily correct.</p>
+<p>I recently implemented module previews in the library in Unreal. This was made easier by the fact that Rack provides <a href="https://vcvrack.com/manual/Installing#Command-line-usage">a command line flag</a> to automatically generate PNG renders of each module. Presumably, this is in place as a utility that the Rack developers themselves use to generate previews for the <a href="https://library.vcvrack.com/">VCV Library</a>, because the previews in the library within Rack are rendered the same way the actual modules are&mdash;on the fly, from the SVG.</p>
+<p>BUT HOLD ON. How did I overlook this? If rack itself knows how to render an SVG to a PNG, that means there must be an interim step where there is simply an array of pixel data. And of course there is, because I have fully rebuilt the Rack SVG rendering pipeline in Unreal to ensure that my textures look the same, and I have an array of pixel data I&rsquo;m writing to a texture target in Unreal. So what if, instead, I follow the preview-generation example from Rack, and let Rack render my pixels?</p>
+<p>And so, I spin up a new Rack module project to experiment with. I learn some things about how the OpenGL libraries work. Before long, I have the beginnings of a solution. Better than that that, I come to an incredible realization: If I&rsquo;m letting Rack handle the rendering, in addition to rendering the SVG data, I can render the dynamically drawn graphics as well!</p>
+<p>If you&rsquo;ve been following along since the beginning (hi! who are you?), you&rsquo;ll know that accessing the run-time graphics was something I was almost completely certain I would never be able to do. But now, behold, a render of the panel like I was handling myself before, and a render of just the panel&rsquo;s run-time overlay graphics:<p>
+{% image preview_img_src, preview_img_alt %}
+<p>Holy shit. Can I really make this work? And better than before?</p>

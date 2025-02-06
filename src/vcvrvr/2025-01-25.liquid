@@ -1,0 +1,20 @@
+---
+title: compression
+page_title: "compression [gtnoblg/vcvrvr]"
+date: 2025-01-25
+
+truncate: true
+preview_text: That&rsquo;s a lot of data. Let&rsquo;s find a way to compress.
+preview_img_src: src/img/vcvrvr/qoi.png
+preview_img_alt: a table of file compression benchmarks, showing libpng to be the slowest and qoi the fastest in these tests
+---
+<p>I spent a fair amount of time over the last few days looking at various compression libraries, trying to find a good balance of speed and compression ratio. I looked at general purpose algorithms and  ones that are image-data specifific. I considered the idea of using a video compression algorithm because I intend to be able to stream dynamic overlay graphics, like the display on a scope. In the end, I randomly stumbled upon <a href="https://qoiformat.org/">QOI</a>. It seemed to be exactly what I needed, so I decided to try it out.</p>
+<p>QOI is &ldquo;The Quite OK Image Format for Fast, Lossless Compression.&rdquo; First of all, I am enamored by the acronym and the way it deflates to a name with many more initials (like compression, get it?). But more importantly, it is lossless and the benchmarks show it to be quite fast. It is criticised as an actually useful image format because it doesn&rsquo;t encode color space and such, but all I need is an array of RGBA pixels encoded, and that&rsquo;s exactly what it excels at. It&rsquo;s also a teeny tiny single-header library, and I always consider that a plus.</p>
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">here seen excelling at ui-y stuff</p>
+<p>In testing it out, I also discover that it works very well with the kind of images I&rsquo;m most likely to be encoding, because module UI is usually a lot of flat color (Rack doesn&rsquo;t even really support SVG gradients). Because of one aspect of the compression strategy (the full spec can be found <a ref="https://qoiformat.org/qoi-specification.pdf">here</a> as a single-sheet pdf), those blocks of flat color collapse into a single value and a count of how many pixels in a row match. In addition, the way it keeps a running record of the previous 64 pixels and references them instead of storing new data works well with the limited color pallette of most modules, too. It seems ideal for my purposes.</p>
+<p>So, let&rsquo;s hook it up.</p>
+{% yt "https://www.youtube.com/embed/GdM08FyTy0U?si=xPUvmub6anbtgng6" %}
+<p>Much faster!</p>
+<p>That&rsquo;s 50,488 bytes (49k, 6.15% the size of the original!) in 46 chunks (vs 744), round trip in 709ms. Much better. For the panel graphics and occasional overlay updates for modules that don't change much, this is already pretty workable. But can I improve the performance enough to stream the overlay graphics at a reasonable framerate?</p>
+<p>RTP works over UDP using the <a href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rtsp/46967a38-b3cc-42a5-a1b4-119d78f03783#:~:text=ASF%20payload%20headers%20and%20compressed%20media%20data%20%3D%201%2C444%20bytes">same packet size</a>, maybe I can find some inspiration by looking into how it works. Or maybe I just end up learning how to use RTP. I have some ideas related to streaming audio as well.</p>

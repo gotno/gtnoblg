@@ -1,0 +1,23 @@
+---
+title: a detour into file handling
+page_title: "a detour into file handling [gtnoblg/vcvrvr]"
+date: 2025-01-25
+
+preview_text: With texture acquisition maybe kind of solved, the next hurdle comes from file handling. In my early experiments, I couldn&rsquo;t figure out a way to get my module in Rack to load new patches without crashing Rack itself. I eventually gave up, and awkwardly handled loading by signaling to Rack to shut down, waiting, and opening it back up with the patch path as an argument. Besides being awkward, loading patches this way is problematic for two reasons&hellip;
+truncate: true
+---
+<p>With texture acquisition maybe kind of solved, the next hurdle comes from file handling. In my early experiments, I couldn&rsquo;t figure out a way to get my module in Rack to load new patches without crashing Rack itself. I eventually gave up, and awkwardly handled loading by signaling to Rack to shut down, waiting, and opening it back up with the patch path as an argument. Besides being awkward, loading patches this way is problematic for two reasons. One, it ties Unreal and Rack too closely together, risking violating the Unreal EULA clause about open source licenses. Two, it means Rack and Unreal need to be running on the same machine.</p>
+<p>I decided to take another look. I&rsquo;ve gotten a little better at using debugging tools in a compiled code context, but I still could not figure out why it was crashing or how to get around it. Stack traces were mysterious or somehow nonexistent. On top of that, behavior was inconsistent. Maybe once every 20 tries, it would actually work, but with no indication as to why that I could determine.</p>
+<p>The reason I was getting hard to debug crashes seemed obvious: the UI in Rack is mostly just nested subclasses of <tt>rack::widget::Widget</tt> all the way down. I&rsquo;m running my logic in a <tt>ModuleWidget</tt>, and all the <tt>ModuleWidget</tt>s live inside a <tt>RackWidget</tt>. Loading a patch clears the <tt>RackWidget</tt> of all <tt>ModuleWidgets</tt>, so my module is effectively deleting itself. It&rsquo;s only an intuition, but I imagine all sorts of things can go sideways when that happens.</p>
+<p>What I needed was a way to run some arbitrary code at a higher level than the <tt>RackWidget</tt>, so that clearing out its children doesn&rsquo;t destroy the requester. Pondering this as I went out to do some grocery shopping, inspiration struck: I&rsquo;d just use another widget.</p>
+<p>There&rsquo;s one more level of widget above the <tt>RackWidget</tt>, and that&rsquo;s the <tt>SceneWidget</tt>. What I can do is add a child widget to the <tt>SceneWidget</tt>, like a widgety little trojan horse. What I eventually come up with looks something like this:</p>
+<p>
+  <a href="https://gist.github.com/gotno/35dcbd38fb338b48d587e989dedc65a5">https://gist.github.com/gotno/35dcbd38fb338b48d587e989dedc65a5</a>
+<script src="https://gist.github.com/gotno/35dcbd38fb338b48d587e989dedc65a5.js"></script>
+</p>
+<p>My <tt>SceneAction</tt> widget gets created and added as a child of the <tt>SceneWidget</tt> (<tt>APP-&gt;scene</tt>). On the next frame, its <tt>step</tt> method is called, running some arbitrary action and immediately requesting to be deleted. The frame after that, it&rsquo;ll be deleted before <tt>step</tt> is called again.</p>
+<p>And it works flawlessly. Easy.</p>
+
+{% comment %} preview_img_src: {% endcomment %} 
+{% comment %} preview_img_alt: {% endcomment %} 
+{% comment %} {% image preview_img_src, preview_img_alt %} {% endcomment %}

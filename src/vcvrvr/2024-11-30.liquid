@@ -1,0 +1,17 @@
+---
+title: a major roadblock
+page_title: "a major roadblock [gtnoblg/vcvrvr]"
+date: 2024-11-30
+
+truncate: true
+preview_text: Unreal&rsquo;s EULA. Let&rsquo;s have a look at it together.
+preview_img_src: src/img/vcvrvr/oh_shit_gpl.png
+preview_img_alt: a screenshot of unreal engine's end user license agreement with the instances of GPL highlighted. the full text reads- Non-Compatible Licenses. You may not, and may not permit others to, combine, Distribute, or otherwise use the Licensed Technology with any code or other content which is covered by a license that would directly or indirectly require that all or part of the Licensed Technology be governed under any terms other than those of this Agreement (those licenses, the “Non-Compatible Licenses”). This means, for example, that you may not combine the Licensed Technology with code or content that is licensed under any of the following licenses- GNU General Public License (GPL), Lesser GPL (LGPL) (unless you are merely dynamically linking a shared library), or Creative Commons Attribution-ShareAlike License.
+---
+<p>Given that I&rsquo;m getting close to what seems like a proper release, it felt like it was probably long past time to think about how Rack&rsquo;s more permissive open source license might interact with Unreal Engine&rsquo;s requirements. It&rsquo;s important because none of this works without my modifications to Rack itself, which means I have to package my version alongside the Unreal application. Neither makes sense without the other.</p>
+<p><a href="https://github.com/VCVRack/Rack/blob/v2/LICENSE-GPLv3.txt">VCV Rack is licensed under GPLv3</a>, which is a very permissive license with one fun quirk we&rsquo;ll get to in a moment. So let&rsquo;s just do a quick search in <a href="https://www.unrealengine.com/en-US/eula/unreal">Unreal Engine&rsquo;s End User License Agreement</a> for &ldquo;GPL&rdquo;:</p>
+{% image preview_img_src, preview_img_alt %}
+<p class="caption">Oh, fuck. Fuck fuck fuck.</p>
+<p>So what&rsquo;s the problem with GPL? GPL is considered a &ldquo;viral&rdquo; open source license. The New Media Rights&rsquo; <a href="https://www.newmediarights.org/open_source/new_media_rights_open_source_licensing_guide">Open Source Licensing Guide</a> puts it this way: &ldquo;The GPL license is &lsquo;viral,&rsquo; meaning any derivative work you create containing even the smallest portion of the previously GPL licensed software must also be licensed under the GPL license.&rdquo; So, Epic doesn&rsquo;t want Unreal mixing with GPL software because then Unreal itself must become GPL licensed. That&rsquo;s not great for my purposes.</p>
+<p>Honestly, I&rsquo;m pretty devastated right now. I really should have considered this earlier, but I wasn&rsquo;t even sure any of this was possible. I&rsquo;ve been stumbling along excited that it works at all.</p>
+<p>I must now consider my options. If I want to continue, I might need to rebuild the entire VR app in a more permissive engine like Godot, which is MIT licensed. While the thought of learning a new technology is always exciting, and I&rsquo;m very curious how another engine might differ from Unreal, the prospect of starting over is really discouraging.</p>
