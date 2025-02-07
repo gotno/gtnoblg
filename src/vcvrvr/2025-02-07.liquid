@@ -1,0 +1,31 @@
+---
+title: time 2 pivot
+page_title: "time 2 pivot [gtnoblg/vcvrvr]"
+date: 2025-02-07
+
+preview_text: I&rsquo;ve been doing a lot of thinking since the&mdash;honestly, strangely serendipitous&mdash;discovery that I had to either switch game engines (because I was probably most likely violating Unreal&rsquo;s EULA), or find my way around some things I had written off as impossible. Both felt daunting. Discouraging. But I&rsquo;m thinking I might actually manage the latter. I&rsquo;ve been thinking of what that might mean, being able to more clearly define what has become a very murky boundary between the two halves of this project. I think it&rsquo;s time to get focused.
+preview_img_src: src/img/vcvrvr/focus.png 
+preview_img_alt: an off-kilter side-by-side view, like looking through goggles, of a partially-complete virtual park environment with untextured trees and rocks, and dramatic sunset lighting. 
+truncate: true
+---
+{% image preview_img_src, preview_img_alt %}
+
+<p>I&rsquo;ve been doing a lot of thinking since the&mdash;honestly, strangely serendipitous&mdash;discovery that I had to either switch game engines (because I was probably most likely violating Unreal&rsquo;s EULA), or find my way around some things I had written off as impossible. Both felt daunting. Discouraging. But I&rsquo;m thinking I might actually manage the latter. I&rsquo;ve been thinking of what that might mean, being able to more clearly define what has become a very murky boundary between the two halves of this project. I think it&rsquo;s time to get focused.</p>
+
+<p>When I started this project it was because I had bumped up against the limits of a VR modular synth I had been using to learn about modular synths. I wanted to make something like it, but with the power of VCV Rack behind it. Because of where I was coming from, and because the more I dug in, the more I let the line blur, I had it in my mind that I was creating an all-in-one thing. The user could just fire up the VR app and go. It would be seamless. And in my head, this was a thing you sat down in front of a big expensive gaming PC to do, because that&rsquo;s how VR works.</p>
+
+<p>I don&rsquo;t think it has to be like that.</p> 
+
+<p>Let&rsquo;s think about it together: How many people who are into modular synths own gaming PCs? And how many of <em>those</em> people use their gaming PCs for VR? It&rsquo;s like a niche in a niche in a niche. Who am I even building this thing for?</p>
+
+<p>The thought that occurred to me is, if my module in VCV Rack and my VR front end in Unreal don&rsquo;t need to run on the same machine, that means the VR thing doesn&rsquo;t have to run on a <em>computer</em> at all. How many people who are into modular synths have a laptop that can run VCV Rack? Probably a lot of them. How many of those people have a Quest or a Pico standalone headset? They&rsquo;re relatively cheap. Becoming more ubiquitous. Maybe they got one as a gift or know someone they can borrow one from.</p>
+
+<p>If my VR front end is <em>just</em> a Quest app, and my Rack module is <em>just</em> a module that provides a generic api for controlling Rack, I think I can reach far more people, potentially.</p>
+
+<p>Thinking about it this way opens up a lot of possibilities. For one, I&rsquo;d have access to hand tracking and passthrough if it was a Quest app. But what if it was multiplayer? What if it was easy to put on a headset, automatically discover the running Rack instance on the network, and connect to a shared space? If that&rsquo;s possible on a local network, maybe it could work over the internet too?</p>
+
+<p>So I&rsquo;m going to strip it back a bit. Not a full rewrite, but when you&rsquo;ve been building something as a way to learn a new language and two new frameworks, things can end up kind of messy. There&rsquo;s still plenty of what I have that I&rsquo;ll use. But I want to take a step back and focus. I feel like I&rsquo;ve been exploring for the last two years. Now I want to move with purpose.</p>
+
+<p>Finally, I want to do something that I regret not doing before: get this thing in front of folks as early in the process as possible so I can build inside that feedback loop. With that in mind, I&rsquo;m going to be pushing to get my module into the VCV Rack library, and my VR app into early access on the Quest store ASAP.</p>
+
+<p>I am so excited.</p>
