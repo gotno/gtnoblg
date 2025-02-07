@@ -1,7 +1,7 @@
 ---
 title: a detour into file handling
 page_title: "a detour into file handling [gtnoblg/vcvrvr]"
-date: 2025-01-25
+date: 2025-02-02
 
 preview_text: With texture acquisition maybe kind of solved, the next hurdle comes from file handling. In my early experiments, I couldn&rsquo;t figure out a way to get my module in Rack to load new patches without crashing Rack itself. I eventually gave up, and awkwardly handled loading by signaling to Rack to shut down, waiting, and opening it back up with the patch path as an argument. Besides being awkward, loading patches this way is problematic for two reasons&hellip;
 truncate: true
@@ -17,7 +17,3 @@ truncate: true
 </p>
 <p>My <tt>SceneAction</tt> widget gets created and added as a child of the <tt>SceneWidget</tt> (<tt>APP-&gt;scene</tt>). On the next frame, its <tt>step</tt> method is called, running some arbitrary action and immediately requesting to be deleted. The frame after that, it&rsquo;ll be deleted before <tt>step</tt> is called again.</p>
 <p>And it works flawlessly. Easy.</p>
-
-{% comment %} preview_img_src: {% endcomment %} 
-{% comment %} preview_img_alt: {% endcomment %} 
-{% comment %} {% image preview_img_src, preview_img_alt %} {% endcomment %}
